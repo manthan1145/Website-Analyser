@@ -1,0 +1,77 @@
+.entry-content img { border-radius: 0px; box-shadow: 0; height: auto; }
+.secsion { position: relative; float: left; width: 100%; }
+.secsion.overflow-hidden { overflow: hidden; }
+
+@media screen and (max-width: 991px) {
+/* VC Column style */
+.secsion .container { width: 100%; }
+}
+.cms-carousel { position: relative; }
+.cms-pulse { display: inline-block; vertical-align: middle; -webkit-transform: translateZ(0); transform: translateZ(0); box-shadow: 0 0 1px rgba(0, 0, 0, 0); -webkit-backface-visibility: hidden; backface-visibility: hidden; -moz-osx-font-smoothing: grayscale; }
+.cms-pulse:hover, .cms-pulse:focus, .cms-pulse:active { -webkit-animation-name: cms-pulse; animation-name: cms-pulse; -webkit-animation-duration: 1s; animation-duration: 1s; -webkit-animation-timing-function: linear; animation-timing-function: linear; -webkit-animation-iteration-count: infinite; animation-iteration-count: infinite; }
+.mis-stage, .mis-slider { z-index: 99; }
+.template-cms_carousel { /* =Layout 1
+-------------------------------------------------------------- */ }
+.template-cms_carousel .cms-carousel-item { background: #fff; position: relative;/** Style 1 **/ }
+.template-cms_carousel .cms-carousel-item .cms-grid-media { overflow: hidden; position: relative; }
+.template-cms_carousel .cms-carousel-item .cms-grid-media:after { content: ""; position: absolute; top: 0; right: 0; left: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); z-index: 999; opacity: 0; -webkit-transition: all, 0.5s; -khtml-transition: all, 0.5s; -moz-transition: all, 0.5s; -ms-transition: all, 0.5s; -o-transition: all, 0.5s; transition: all, 0.5s;/* BACKGROUND GRADIENT *//* TRANSITION PROPERTY*/ }
+.template-cms_carousel .cms-carousel-item .cms-grid-media img { -webkit-transition: all, 0.5s; -khtml-transition: all, 0.5s; -moz-transition: all, 0.5s; -ms-transition: all, 0.5s; -o-transition: all, 0.5s; transition: all, 0.5s;/* BACKGROUND GRADIENT *//* TRANSITION PROPERTY*/ }
+.template-cms_carousel .cms-carousel-item .cms-grid-media:hover:after { opacity: 1; -webkit-transition: all, 0.5s; -khtml-transition: all, 0.5s; -moz-transition: all, 0.5s; -ms-transition: all, 0.5s; -o-transition: all, 0.5s; transition: all, 0.5s;/* BACKGROUND GRADIENT *//* TRANSITION PROPERTY*/ }
+.template-cms_carousel .cms-carousel-item .cms-grid-media:hover img { -webkit-transform: scale(1.1); -khtml-transform: scale(1.1); -moz-transform: scale(1.1); -ms-transform: scale(1.1); -o-transform: scale(1.1); transform: scale(1.1); /* BACKGROUND GRADIENT */ /* TRANSFORM STYLE */
+-webkit-transition: all, 0.5s; -khtml-transition: all, 0.5s; -moz-transition: all, 0.5s; -ms-transition: all, 0.5s; -o-transition: all, 0.5s; transition: all, 0.5s;/* BACKGROUND GRADIENT *//* TRANSITION PROPERTY*/ }
+.template-cms_carousel .cms-carousel-item .carousel-content { text-align: center; margin-bottom: 52px; min-height: 240px; }
+.template-cms_carousel .cms-carousel-item .carousel-content .cms-carousel-categories { margin-top: 49px; font-size: 12px; text-transform: uppercase; font-weight: 400; }
+.template-cms_carousel .cms-carousel-item .carousel-content .cms-carousel-categories span { color: #4b4b4b; }
+.template-cms_carousel .cms-carousel-item .carousel-content .cms-carousel-title h3 { font-weight: 100; }
+.template-cms_carousel .cms-carousel-item .carousel-content .content { padding: 0 15%; margin-top: 45px; }
+.template-cms_carousel .cms-carousel-item .carousel-footer { width: 100%; border-top: 1px solid #e5e5e5; }
+.template-cms_carousel .cms-carousel-item .carousel-footer .comment-post, .template-cms_carousel .cms-carousel-item .carousel-footer .yrs-post, .template-cms_carousel .cms-carousel-item .carousel-footer .like-post { min-height: 97px; text-align: center; width: 33.33333%; float: left; position: relative; }
+.template-cms_carousel .cms-carousel-item .carousel-footer .comment-post i, .template-cms_carousel .cms-carousel-item .carousel-footer .yrs-post i, .template-cms_carousel .cms-carousel-item .carousel-footer .like-post i { font-size: 16px; }
+.template-cms_carousel .cms-carousel-item .carousel-footer .comment-post a, .template-cms_carousel .cms-carousel-item .carousel-footer .yrs-post a, .template-cms_carousel .cms-carousel-item .carousel-footer .like-post a, .template-cms_carousel .cms-carousel-item .carousel-footer .comment-post span, .template-cms_carousel .cms-carousel-item .carousel-footer .yrs-post span, .template-cms_carousel .cms-carousel-item .carousel-footer .like-post span { font-size: 12px; display: block; color: #4b4b4b; line-height: 15px; }
+.template-cms_carousel .cms-carousel-item .carousel-footer .comment-post, .template-cms_carousel .cms-carousel-item .carousel-footer .yrs-post { border-right: 1px solid #e5e5e5; }
+.template-cms_carousel .cms-carousel-item .carousel-footer .yrs-content, .template-cms_carousel .cms-carousel-item .carousel-footer .cms-post-like, .template-cms_carousel .cms-carousel-item .carousel-footer .comment-post-content { position: absolute; top: 50%; width: 100%; -webkit-transform: translateY(-50%); -khtml-transform: translateY(-50%); -moz-transform: translateY(-50%); -ms-transform: translateY(-50%); -o-transform: translateY(-50%); transform: translateY(-50%);/* BACKGROUND GRADIENT *//* TRANSFORM STYLE */ }
+.template-cms_carousel.style-1 { /** Style 2 **/ }
+.template-cms_carousel.style-1 .cms-carousel-categories a, .template-cms_carousel.style-1 .carousel-footer i { color: #ed2526; }
+.template-cms_carousel.style-2 .cms-carousel-categories a, .template-cms_carousel.style-2 .carousel-footer i { color: #f5913c; }
+.template-cms_special_carousel { position: relative;/*
+-------------------------------------------------------------- */ }
+.template-cms_special_carousel.mis-stage { margin-bottom: 20px; }
+.template-cms_special_carousel .mis-slide img { width: 100%; }
+.template-cms_special_carousel .mis-slide.mis-current { -webkit-transform: scale(1.005) !important; -khtml-transform: scale(1.005) !important; -moz-transform: scale(1.005) !important; -ms-transform: scale(1.005) !important; -o-transform: scale(1.005) !important; transform: scale(1.005) !important;/* BACKGROUND GRADIENT */ }
+.template-cms_special_carousel .mis-nav-buttons a { width: 6.3%; height: 66.5%; z-index: 999; top: 50%; -webkit-transform: translateY(-50%); -khtml-transform: translateY(-50%); -moz-transform: translateY(-50%); -ms-transform: translateY(-50%); -o-transform: translateY(-50%); transform: translateY(-50%); /* BACKGROUND GRADIENT */ display: block; text-indent: -9999px; }
+.template-cms_special_carousel .mis-nav-buttons a.mis-prev { background: rgba(75, 75, 75, 0.5) url(../../images/clients/arrow-left.png) no-repeat center center; }
+.template-cms_special_carousel .mis-nav-buttons a.mis-next { background: rgba(75, 75, 75, 0.5) url(../../images/clients/arrow-right.png) no-repeat center center; }
+.template-cms_special_carousel .mis-nav-buttons a.mis-prev:before, .template-cms_special_carousel .mis-nav-buttons a.mis-next:after { display: none; }
+.template-cms_special_carousel .mis-container { position: relative; }
+.template-cms_special_carousel .mis-container .carousel-meta { position: absolute; width: 100%; bottom: 0; -webkit-transition: all 0.3s; -khtml-transition: all 0.3s; -moz-transition: all 0.3s; -ms-transition: all 0.3s; -o-transition: all 0.3s; transition: all 0.3s; /* BACKGROUND GRADIENT */ opacity: 0; z-index: 9999; }
+.template-cms_special_carousel .mis-container .carousel-meta .carousel-meta-inner { max-width: 130px; margin: 0 auto; }
+.template-cms_special_carousel .mis-container .carousel-meta .carousel-meta-inner a { display: inline-block; width: 60px; height: 60px; line-height: 60px; -webkit-border-radius: 50%; -khtml-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; /* BACKGROUND GRADIENT */ -webkit-transition: all, 0.5s; -khtml-transition: all, 0.5s; -moz-transition: all, 0.5s; -ms-transition: all, 0.5s; -o-transition: all, 0.5s; transition: all, 0.5s; /* BACKGROUND GRADIENT */ color: #fff; }
+.template-cms_special_carousel .mis-container .carousel-meta .carousel-meta-inner a:hover { opacity: 0.7; }
+.template-cms_special_carousel .mis-container .carousel-meta .carousel-meta-inner a.button-popup { }
+.template-cms_special_carousel .mis-container .carousel-meta .carousel-meta-inner a.read-more { float: right; }
+.template-cms_special_carousel .mis-container .carousel-meta .carousel-meta-inner a i { font-size: 16px; }
+.template-cms_special_carousel .mis-current .carousel-meta { bottom: 40%; opacity: 1; -webkit-transition: all 0.5s; -khtml-transition: all 0.5s; -moz-transition: all 0.5s; -ms-transition: all 0.5s; -o-transition: all 0.5s; transition: all 0.5s;/* BACKGROUND GRADIENT */ }
+
+@media screen and (max-width: 1024px) {
+/* Max width 991px */
+.cms-special-carousel-item .carousel-content .content-wrap:after { font-size: 50px; }
+}
+
+@media screen and (max-width: 991px) {
+/* Min width 992px */
+.container { width: 100% !important; }
+}
+
+@media screen and (max-width: 767px) {
+.cms-special-carousel.template-cms_special_carousel { height: auto !important; }
+/*.cms-special-carousel.template-cms_special_carousel .mis-nav-buttons a.mis-prev { background-image: url("../../images/row-left.png") !important; }
+.cms-special-carousel.template-cms_special_carousel .mis-nav-buttons a.mis-next { background-image: url("../../images/row-right.png") !important; }
+*/.template-cms_carousel--quote .carousel-content::before { left: 8%; top: 25%;/** Quote **/ }
+.cms-special-carousel.template-cms_special_carousel--quote .cms-special-carousel-item .mis-container .carousel-content { min-width: 478px; }
+.cms-special-carousel.template-cms_special_carousel--quote .cms-special-carousel-item .mis-container .carousel-content .content-wrap:before, .cms-special-carousel.template-cms_special_carousel--quote .cms-special-carousel-item .mis-container .carousel-content .content-wrap:after { font-size: 25px; }
+.cms-special-carousel.template-cms_special_carousel--quote .cms-special-carousel-item .mis-container .carousel-content .content-wrap .content { max-width: 370px; font-size: 20px; line-height: 30px; }
+.template-cms_carousel--team { /* =Fancybox
+-------------------------------------------------------------- */ }
+.template-cms_carousel--team .cms-grid-media { margin-right: 60px; }
+.template-cms_carousel--team .content { max-width: 50%; padding: 0; }
+}

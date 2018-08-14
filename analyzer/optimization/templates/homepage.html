@@ -48,10 +48,19 @@
 		color: white;		
 	}
 	.results_div{
-		width: 900px;
-		height: 500px;
-		margin:0 auto;
-		display: none;
+	    width: 396px;
+	    height: 800px;
+	    /* margin: 0 auto; */	   
+	    margin-left: 30px;
+	    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	    float: left;
+	    display: none;
+	}
+	.results_div,h2{
+		text-transform: uppercase;
+
+	}
+
 	}
 	#results {
 	    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -91,28 +100,8 @@
 		<button class="test_site">Start Testing</button>
 	</div>
 	<div class='results_div'>
-		<table id = 'results'>
-			<tr>
-				<td>Page Load Time</td>
-				<td class="page_load"></td>
-			</tr>
-			<tr>
-				<td>SSL Certification</td>
-				<td class="ssl"></td>
-			</tr>
-			
-			<tr>
-				<td>Image Size</td>
-				<td class="img_size"></td>
-			</tr>
-			<tr>
-				<td>Total Number of Images</td>
-				<td class="img_count"></td>
-			</tr>
-			<tr>
-				<td>Count of redirection</td>
-				<td class="red_count"></td>
-			</tr>
+		<center><h2>JS Inspection</h2></center>
+		<table id="results">
 			<tr>
 				<td>Number of scripts before body tag</td>
 				<td class="scripts_before_body"></td>
@@ -126,19 +115,65 @@
 				<td class="count_plugins"></td>
 			</tr>
 			<tr>
-				<td>Css In Body tag</td>
-				<td class="css_in_body"></td>
-			</tr>
+				<td>JS converted into min.js</td>
+				<td class="min_js"></td>
+			</tr>	
+			<tr>
+				<td>Best Average Number of external scripts should be 6</td>
+				<td class="avg_js"></td>
+			</tr>	
+		</table>
+		<div id="js_graph"></div>
+	</div>
+	<div class='results_div'>
+		<center><h2>CSS Inspection</h2></center>
+		<table id="results">
 			<tr>
 				<td>Import in webpage</td>
 				<td class="import_css_list"></td>
 			</tr>
 			<tr>
+				<td>Css In Body tag</td>
+				<td class="css_in_body"></td>
+			</tr>
+			<tr>
+				<td>Css converted into min.css</td>
+				<td class="min_css"></td>
+			</tr>
+			<tr>
+				<td>Preloaded Urls</td>
+				<td class="preloaded_urls"></td>
+			</tr>
+			<tr>
+				<td>Average Number of External stylesheets should be 4</td>
+				<td class="avg_css"></td>
+			</tr>
+		</table>
+		<div id="css_graph"></div>
+	</div>
+	<div class='results_div'>
+		<center><h2>Content Inspection</h2></center>
+		<table id="results">
+			<tr>
+				<td>Page Load Time</td>
+				<td class="page_load"></td>
+			</tr>
+			<tr>
+				<td>SSL Certification</td>
+				<td class="ssl"></td>
+			</tr>
+			
+			<tr>
+				<td>Count of redirection</td>
+				<td class="red_count"></td>
+			</tr>
+
+			<tr>
 				<td>Cookies enabled </td>
 				<td class="cookies_status"></td>
 			</tr>
 			<tr>
-				<td>Headers </td>
+				<td>Headers Size</td>
 				<td class="headers"></td>
 			</tr>				
 			<tr>
@@ -148,24 +183,17 @@
 			<tr>
 				<td>Charset in meta tag</td>
 				<td class="meta_tags"></td>
-			</tr>											
-			<tr>
-				<td>Css converted into min.css</td>
-				<td class="min_css">										
-				</td>
-			</tr>
-			<tr>
-				<td>JS converted into min.js</td>
-				<td class="min_js">										
-				</td>
-			</tr>						
-		</table>		
+			</tr>			
+		</table>
 	</div>
+	
 <div class="error">
 	<h1>INCORRECT URL</h1>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script type="text/javascript">
 	$(document).on('click','.test_site',function(event){
 		var a = $('.website_url').val();
@@ -179,7 +207,7 @@
 		else{
 			a = 'http://' + a			
 		}
-		
+		var js_points = [];
 		$.ajax({
             url: '/optimization/',
             type: 'POST',
@@ -188,6 +216,7 @@
     			var a = JSON.parse(response)
     			c = a['min_css_list']
     			j = a['min_js_list']
+
     			if (a['error'] == '404'){
     				$(".error").css("display", "block");
     			}
@@ -205,7 +234,24 @@
     			$('.cookies_status').html(a['cookies_status'])
     			$('.headers').html(a['headers'])
     			$('.etag_status').html(a['etag_status'])
+    			$('.preloaded_urls').html(a['preloaded_urls'])
     			$('.meta_tags').html(a['meta_tags'])
+
+    			if (a['total_js_files'] > 6){
+    				$('.avg_js').html('Fail')
+    			}
+    			else{
+    				$('.avg_js').html('Pass')	
+    			}
+
+				if (a['total_css_links'] > 4){
+    				$('.avg_css').html('Fail')
+    			}
+    			else{
+    				$('.avg_css').html('Pass')	
+    			}    			
+
+
     			html = '';
     			for(var i=0;i<c.length;i++){
     				html = html +'<a href="'+c[i].path+'"download>Link</a>  '+c[i]._size+'<br>'
@@ -216,11 +262,51 @@
     				html1 = html1 +'<a href="'+j[i].path+'"download>Link</a>  '+j[i]._size+'<br>'
     			}
     			$('.min_js').html(html1)
-    			$(".results_div").css("display", "block");    		
+    			
+    			
+
+
+			    var js_chart = new CanvasJS.Chart("js_graph", {
+			    animationEnabled: true,
+			    title: {
+			      text: "Test"
+			    },
+			    data: [{
+			      type: "pie",
+			      startAngle: 240,
+			      yValueFormatString: "##0.00\"%\"",
+			      indexLabel: "{label} {y}",
+			      dataPoints:[
+			      {y:a['total_js_files'],label:'Total Js Files'},
+			      {y:a['min_js_list'].length, label:'Minimized Js'}
+			      ]
+			    }]
+			    });
+			    js_chart.render();
+
+			    var css_chart = new CanvasJS.Chart("css_graph", {
+			    animationEnabled: true,
+			    title: {
+			      text: "Test"
+			    },
+			    data: [{
+			      type: "pie",
+			      startAngle: 240,	
+			      yValueFormatString: "##0.00\"%\"",
+			      indexLabel: "{label} {y}",
+			      dataPoints:[
+			      {y:a['total_css_links'],label:'Total Css Files'},
+			      {y:a['min_css_list'].length, label:'Minimized Css'}
+			      ]
+			    }]
+			    });
+			    css_chart.render();
+			    $(".results_div").css("display", "block");    		
     			}
               }            
         });		
-	});
+
+});
 
 $(document).on('keypress','#enter_website',function (e) {
  var key = e.which;
@@ -230,6 +316,9 @@ $(document).on('keypress','#enter_website',function (e) {
     return false;  
   }
 });   
+
+
+
 </script>
 </body>
 </html>

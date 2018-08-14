@@ -55,6 +55,7 @@ class BasicView(TemplateView):
 		#Images count and size of all images
 		
 		images = html.findAll('img')
+		
 		size_of_images = 0
 		print('Total Number of images-------',len(images))
 		success = 0
@@ -90,7 +91,7 @@ class BasicView(TemplateView):
 				
 				continue
 		
-		print("\nSuccess----------",success)
+		# print("\nSuccess----------",success)
 		
 
 
@@ -108,9 +109,9 @@ class BasicView(TemplateView):
 		# check preload
 		preloaded_urls=[link for link in html.findAll("link") if "preload" in link.get("rel", [])]
 		if preloaded_urls:
-			preloaded_urls='ok'
+			preloaded_urls='True'
 		else:
-			preloaded_urls='notok'
+			preloaded_urls='False'
 
 
 		
@@ -167,6 +168,7 @@ class BasicView(TemplateView):
 					if min_size < simple_css_size:
 						temp_dict['path'] = min_path
 						temp_dict['_size'] = str(min_size / 1000) + 'KB'
+						temp_dict['comparing_path'] = new_path
 						min_css_list.append(temp_dict)
 			except Exception as e:
 				print(e)
@@ -190,6 +192,7 @@ class BasicView(TemplateView):
 		
 		js_files_list = []
 		js_in_page = []
+
 		html = BeautifulSoup(response.text,'html5lib')
 		for link in html.findAll("script"):
 			if link.get("src", []):
@@ -307,21 +310,25 @@ class BasicView(TemplateView):
 
 
 		#Check for charset in metatag
-		meta_tags = html.findAll('meta')
-		meta_tags_list = []
-		for tag in meta_tags:
+		response = requests.get(url)
+		html = BeautifulSoup(response.text,'html5lib')
+		charset_tag = ''
+		for tag in html.findAll('meta'):
 			if tag.get('charset'):
-				meta_tags_list.append(tag)
+				charset_tag = str(tag).replace('<','')
 
 
+		print("\n",charset_tag)
+		print("\n Total Js files",len(js_files_list))
+		print("\n Total Css files",len(css_links))
 		print("\n\n")
 		# content['js_files'] = len(js_files_list)
 		# content['js_in_page'] = len(js_in_page)
 		content['page_load'] = page_time		
 		# content['css_files'] = len(css_files)
 		# content['css_inpage'] = len(css_inpage)
-		content['img_count'] = len(images)
-		content['img_size']  = str(size_of_images / 1000) + ' KB'
+		# content['img_count'] = len(images)
+		# content['img_size']  = str(size_of_images / 1000) + ' KB'
 		# content['size_of_css'] = str(size_of_css / 1000) + ' KB'		
 
 		content['count_write'] = len(count_write_list)
@@ -330,13 +337,13 @@ class BasicView(TemplateView):
 		content['scripts_before_body'] = scripts_without_body
 		content['css_in_body'] = total_css_inbody
 		content['min_css_list'] = min_css_list
+		content['total_css_links'] = len(css_links)
 		content['import_css_list'] = len(import_css_list)
 		content['min_js_list'] = min_js_list
+		content['total_js_files'] = len(js_files_list)
 		content['cookies_status'] = cookies_status
 		content['headers'] = len(url_headers)
 		content['etag_status'] = etag_status
-		content['meta_tags'] = len(meta_tags_list)
-		return HttpResponse(json.dumps(content))
-
-
-	
+		content['meta_tags'] = charset_tag
+		content['preloaded_urls'] = preloaded_urls
+		return HttpResponse(json.dumps(content))	

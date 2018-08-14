@@ -1,0 +1,1 @@
+document.write('<table><tr><td>Hello, visitor from: <strong> , India</strong>&nbsp;');document.write(':
