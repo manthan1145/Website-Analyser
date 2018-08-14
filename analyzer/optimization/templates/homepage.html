@@ -1,0 +1,235 @@
+<html>
+<head><title>Homepage</title>
+<style>
+	.search_wrapper{
+		height:200px;
+		width:1300px;
+		
+		margin:0 auto;
+		margin-top: 40px;
+	}
+	input[type='text']{
+		width:600px;
+		height:40px;
+		font-size: 15px;
+		margin-left: 190px;
+		margin-top: 30px;
+		outline: none;
+		border: 1px solid grey;
+		border-radius:5px;
+		padding: 10px;
+	}
+	input[type='text']:focus{
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+	label{
+		font-size: 30px;
+		margin:0 auto;
+		margin-left: 500px;
+	}
+	button{
+		height:40px;
+		width:100px;
+		border: none;
+		background:#008CBA;
+		color:white;		
+		outline: none;
+		margin-left: 40px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+	input.disabled_text{
+		width : 100px;
+		margin-right: -184px;
+	}
+	button:active{
+		
+		background:#555555;
+		color: white;		
+	}
+	.results_div{
+		width: 900px;
+		height: 500px;
+		margin:0 auto;
+		display: none;
+	}
+	#results {
+	    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	    border-collapse: collapse;
+	    width: 100%;
+	}
+
+	#results td, #results th {
+	    border: 1px solid #ddd;
+	    padding: 8px;
+	}
+
+	#results tr:nth-child(even){background-color: #f2f2f2;}
+
+	#results tr:hover {background-color: #ddd;}
+	
+	.error{
+		position: fixed;
+    	width: 700px;
+    	height: 100px;
+    	margin: 0 auto;
+		display: none;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+	.error,h1{
+		margin:0 auto;
+		margin-left : 210px;
+		margin-top: 31px;
+	}
+</style>
+</head>
+<body>
+	<div class='search_wrapper'><br>
+		<label>Test Your Website</label><br>
+		<input type="text" class='disabled_text' value="HTTP://" disabled >
+		<input type='text' id="enter_website" class='website_url' placeholder="Enter Website URL">
+		<button class="test_site">Start Testing</button>
+	</div>
+	<div class='results_div'>
+		<table id = 'results'>
+			<tr>
+				<td>Page Load Time</td>
+				<td class="page_load"></td>
+			</tr>
+			<tr>
+				<td>SSL Certification</td>
+				<td class="ssl"></td>
+			</tr>
+			
+			<tr>
+				<td>Image Size</td>
+				<td class="img_size"></td>
+			</tr>
+			<tr>
+				<td>Total Number of Images</td>
+				<td class="img_count"></td>
+			</tr>
+			<tr>
+				<td>Count of redirection</td>
+				<td class="red_count"></td>
+			</tr>
+			<tr>
+				<td>Number of scripts before body tag</td>
+				<td class="scripts_before_body"></td>
+			</tr>
+			<tr>
+				<td>Counting document.write</td>
+				<td class="count_write"></td>
+			</tr>
+			<tr>
+				<td>Counting Plugins</td>
+				<td class="count_plugins"></td>
+			</tr>
+			<tr>
+				<td>Css In Body tag</td>
+				<td class="css_in_body"></td>
+			</tr>
+			<tr>
+				<td>Import in webpage</td>
+				<td class="import_css_list"></td>
+			</tr>
+			<tr>
+				<td>Cookies enabled </td>
+				<td class="cookies_status"></td>
+			</tr>
+			<tr>
+				<td>Headers </td>
+				<td class="headers"></td>
+			</tr>				
+			<tr>
+				<td>Etag Existence </td>
+				<td class="etag_status"></td>
+			</tr>					
+			<tr>
+				<td>Charset in meta tag</td>
+				<td class="meta_tags"></td>
+			</tr>											
+			<tr>
+				<td>Css converted into min.css</td>
+				<td class="min_css">										
+				</td>
+			</tr>
+			<tr>
+				<td>JS converted into min.js</td>
+				<td class="min_js">										
+				</td>
+			</tr>						
+		</table>		
+	</div>
+<div class="error">
+	<h1>INCORRECT URL</h1>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).on('click','.test_site',function(event){
+		var a = $('.website_url').val();
+		
+		if (a=='')
+		{
+			$('.website_url').focus();
+			return false
+		}
+		if (a.includes('http')){}
+		else{
+			a = 'http://' + a			
+		}
+		
+		$.ajax({
+            url: '/optimization/',
+            type: 'POST',
+            data: {'csrfmiddlewaretoken':'{{csrf_token}}','url':a},
+            success: function(response){
+    			var a = JSON.parse(response)
+    			c = a['min_css_list']
+    			j = a['min_js_list']
+    			if (a['error'] == '404'){
+    				$(".error").css("display", "block");
+    			}
+    			else{
+    			$('.page_load').html(a['page_load'])
+    			$('.ssl').html(a['ssl'])
+    			$('.img_size').html(a['img_size'])
+    			$('.img_count').html(a['img_count'])
+    			$('.red_count').html(a['red_count'])
+    			$('.scripts_before_body').html(a['scripts_before_body'])
+    			$('.count_write').html(a['count_write'])
+    			$('.count_plugins').html(a['count_plugins'])
+    			$('.css_in_body').html(a['css_in_body'])
+    			$('.import_css_list').html(a['import_css_list']) 
+    			$('.cookies_status').html(a['cookies_status'])
+    			$('.headers').html(a['headers'])
+    			$('.etag_status').html(a['etag_status'])
+    			$('.meta_tags').html(a['meta_tags'])
+    			html = '';
+    			for(var i=0;i<c.length;i++){
+    				html = html +'<a href="'+c[i].path+'"download>Link</a>  '+c[i]._size+'<br>'
+    			}
+    			$('.min_css').html(html)
+    			html1 = '';
+    			for(var i=0;i<j.length;i++){
+    				html1 = html1 +'<a href="'+j[i].path+'"download>Link</a>  '+j[i]._size+'<br>'
+    			}
+    			$('.min_js').html(html1)
+    			$(".results_div").css("display", "block");    		
+    			}
+              }            
+        });		
+	});
+
+$(document).on('keypress','#enter_website',function (e) {
+ var key = e.which;
+ if(key == 13)  // the enter key code
+  {
+    $('.test_site').click();
+    return false;  
+  }
+});   
+</script>
+</body>
+</html>
